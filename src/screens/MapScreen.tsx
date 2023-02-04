@@ -11,6 +11,8 @@ import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
 
+import Icon from 'react-native-vector-icons/AntDesign';
+
 function MapScreen(): JSX.Element {
     const isDarkMode = useColorScheme() === 'dark';
   
@@ -28,7 +30,7 @@ function MapScreen(): JSX.Element {
           contentInsetAdjustmentBehavior="automatic"
           style={backgroundStyle}>
           <Text>Map Screen</Text>
-
+          <Icon name="infocirlce" size={30} color="green" />
         </ScrollView>
       </SafeAreaView>
     );
