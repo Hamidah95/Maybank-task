@@ -1,44 +1,52 @@
-import React from 'react';
-import {
-  SafeAreaView,
-  View,
-  StatusBar,
-  useColorScheme,
-  Text,
-  StyleSheet,
-} from 'react-native';
-
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import React, {useState, useEffect} from 'react';
+import {SafeAreaView, Text, Button} from 'react-native';
 
 import Icon from 'react-native-vector-icons/AntDesign';
-import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
+import ShowMap from '../components/ShowMap';
+import SearchModal from '../components/SearchModal';
+import {enableLatestRenderer} from 'react-native-maps';
+import Geolocation from '@react-native-community/geolocation';
+import {useLocation} from '../utils/locationContext';
 
 function MapScreen(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [location, setLocation] = useState({
+    latitude: 6.4545,
+    longitude: 101.693207,
+  });
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-    flex: 1,
-  };
+  useEffect(() => {
+    enableLatestRenderer();
+    Geolocation.getCurrentPosition(info => {
+      setLocation({
+        latitude: info.coords.latitude,
+        longitude: info.coords.longitude,
+      });
+    });
+  }, [location]);
+  // Geolocation.setRNConfiguration(
+  //   {
+  //     // skipPermissionRequests: boolean;
+  //     authorizationLevel:'auto'
+  //     locationProvider:'auto'
+  //   }
+  // )
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
+    <SafeAreaView style={{flex: 1}}>
       <Text>Map Screen</Text>
-      <Icon name="infocirlce" size={30} color="green" />
-
-      <MapView
-        provider={PROVIDER_GOOGLE} // remove if not using Google Maps
-        style={StyleSheet.absoluteFillObject}
-        region={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.015,
-          longitudeDelta: 0.0121,
-        }}></MapView>
+      <Icon
+        name="search1"
+        size={30}
+        color="green"
+        onPress={() => setShowModal(true)}
+      />
+      <ShowMap />
+      {/* <Button title="HEllo" /> */}
+      <SearchModal
+        visible={showModal}
+        onHideModal={() => setShowModal(false)}
+      />
     </SafeAreaView>
   );
 }
