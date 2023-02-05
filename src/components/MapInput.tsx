@@ -4,6 +4,8 @@ import {GooglePlacesAutocomplete, GooglePlacesAutocompleteRef} from 'react-nativ
 import {GOOGLE_PLACES_API} from '@env';
 import { PREDEFINE_PLACES } from '../utils/constants';
 import { ButtonIcon } from './ButtonIcon';
+import { connect } from 'react-redux';
+import { getAllSearches } from '../utils/api';
 
 function renderDescription(rowData) {
   const title = rowData.structured_formatting?.main_text;
@@ -66,7 +68,18 @@ const MapInput: React.FC<Props> = props => {
     />
   );
 };
-export default MapInput;
+const mapStateToProps = state => {
+  return {
+    searches: state,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MapInput);
 
 const styles = StyleSheet.create({
   textInputContainer: {

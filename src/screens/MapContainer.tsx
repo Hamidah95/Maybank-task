@@ -4,6 +4,8 @@ import MapInput from '../components/MapInput'
 import ShowMapView from '../components/ShowMapView'
 import Geolocation from '@react-native-community/geolocation';
 import { Region, Location } from '../utils/types';
+import { connect } from 'react-redux';
+import { getAllSearches } from '../utils/api';
 
 const MapContainer = () => {
     const [region, setRegion] = useState<Region|null>(null)
@@ -52,4 +54,18 @@ const MapContainer = () => {
         </SafeAreaView>
     )
 }
-export default MapContainer
+const mapStateToProps = state => {
+  return {
+    searches: state,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getAllSearches: () => {
+      dispatch(getAllSearches());
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MapContainer);

@@ -30,27 +30,24 @@ import {
   
   // Here's the unique part, generator function*, function with asterisk(*)
   
-  // Get Todos
   function* getSearches() {
     yield put({ type: SET_LOADING })
   
-    const todos = yield call(getAllSearches)
+    const searches = yield call(getAllSearches)
   
-    yield put({ type: GET_SEARCHES, payload: todos })
+    yield put({ type: GET_SEARCHES, payload: searches })
   }
   
-  // Set the title of todo
   function* setSearchTitle({ payload }) {
     yield put({ type: SET_SEARCH_TITLE, payload })
   }
   
-  // Create Todo
   function* createSearch({ payload }) {
     yield put({ type: SET_LOADING })
   
-    const newTodo = yield call(createNewSearch, payload)
+    const newSearch = yield call(createNewSearch, payload)
   
-    yield put({ type: CREATE_SEARCH, payload: newTodo })
+    yield put({ type: CREATE_SEARCH, payload: newSearch })
 
     yield put({ type: CLEAR_SEARCH_TITLE })
   }
@@ -58,9 +55,9 @@ import {
   function* deleteSearch({ payload }) {
     yield put({ type: SET_LOADING })
   
-    const todo = yield call(deleteExistedSearches, payload)
+    const search = yield call(deleteExistedSearches, payload)
   
-    yield put({ type: DELETE_SEARCH, payload: todo })
+    yield put({ type: DELETE_SEARCH, payload: search })
   }
   
   export default function* searchSaga() {

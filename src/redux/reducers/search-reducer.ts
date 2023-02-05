@@ -24,37 +24,32 @@ export default (state = initialState, {type, payload}) => {
         ...state,
         loading: true,
       };
-    // Get todos
     case GET_SEARCHES:
       return {
         ...state,
-        todos: payload,
+        searches: payload,
         loading: false,
       };
-    // Set todo title from user that gonna input a title in form
     case SET_SEARCH_TITLE:
       return {
         ...state,
         title: payload,
       };
-    // Create new todo
     case CREATE_SEARCH:
       return {
         ...state,
         searches: [payload, ...state.searches],
         loading: false,
       };
-    // Clear todo title in form after creating a new one
     case CLEAR_SEARCH_TITLE:
       return {
         ...state,
         title: '',
       };
-    // Delete existed todo
     case DELETE_SEARCH:
       return {
         ...state,
-        todos: state.searches.filter(item => item.id !== payload),
+        searches: state.searches.filter(item => item.id !== payload),
         loading: false,
       };
     // Return default state if you didn't match any case
