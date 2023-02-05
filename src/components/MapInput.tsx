@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
-import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
+import {GooglePlacesAutocomplete, GooglePlacesAutocompleteRef} from 'react-native-google-places-autocomplete';
 import {GOOGLE_PLACES_API} from '@env';
-import Icon from 'react-native-vector-icons/AntDesign';
 import { PREDEFINE_PLACES } from '../utils/constants';
+import { ButtonIcon } from './ButtonIcon';
 
 function renderDescription(rowData) {
   const title = rowData.structured_formatting?.main_text;
@@ -23,6 +23,7 @@ interface Props {
 }
 
 const MapInput: React.FC<Props> = props => {
+  const mapRef = useRef<GooglePlacesAutocompleteRef>(null)
 
   return (
     <GooglePlacesAutocomplete
@@ -53,27 +54,15 @@ const MapInput: React.FC<Props> = props => {
       // textInputHide
       styles={styles}
       renderLeftButton={() => (
-        <View style={{justifyContent: 'center'}}>
-          <Icon
-            name="search1"
-            size={20}
-            color="white"
-          />
-        </View>
+        <ButtonIcon icon='search1'/>
       )}
       renderRightButton={() => (
-        <View style={{justifyContent: 'center'}}>
-          <Icon
-            name="close"
-            size={20}
-            color="white"
-            onPress={() => console.log('clear text input')}
-          />
-        </View>
+        <ButtonIcon icon='close' onPressButton={() => mapRef.current?.clear()}/>
       )}
       textInputProps={{multiline: true, numberOfLines: 4}}
       predefinedPlaces={PREDEFINE_PLACES}
       predefinedPlacesAlwaysVisible={false}
+      ref={mapRef}
     />
   );
 };
@@ -81,6 +70,7 @@ export default MapInput;
 
 const styles = StyleSheet.create({
   textInputContainer: {
+    paddingRight:20,
     backgroundColor: 'grey',
   },
   textInput: {
