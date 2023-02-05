@@ -6,12 +6,11 @@
  */
 
 import React from 'react';
-import MapScreen from './src/screens/MapScreen';
-
+import MapContainer from './src/screens/MapContainer';
 
 function App(): JSX.Element {
   return (
-    <MapScreen/>
+    <MapContainer/>
   );
 }
 
