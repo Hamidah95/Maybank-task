@@ -27,4 +27,6 @@ Will need to add own API_KEY generated from [here](https://console.cloud.google.
 ### Sample video recording can be found in the assets folder
 ![permission](/src/assets/android_location_permission.png "Request Permission for android")
 
-![result](/src/assets/search_location.png "Sample result for both Android and IOS")
+![search](/src/assets/search_location.png "Autocomplete Search")
+
+![result](/src/assets/location_result.png "Sample result for both Android and IOS")
