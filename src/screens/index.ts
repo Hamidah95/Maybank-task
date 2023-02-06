@@ -1,1 +1,1 @@
-export * from "./MapScreen"
+export * from './MapContainer'

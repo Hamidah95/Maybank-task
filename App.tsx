@@ -6,12 +6,15 @@
  */
 
 import React from 'react';
-import MapScreen from './src/screens/MapScreen';
-
+import MapContainer from './src/screens/MapContainer';
+import { Provider } from 'react-redux'//bridge for connecting react to redux
+import store from './src/redux/store'
 
 function App(): JSX.Element {
   return (
-    <MapScreen/>
+    <Provider store={store}>
+      <MapContainer/>
+    </Provider>
   );
 }
 
